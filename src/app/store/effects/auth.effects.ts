@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import * as fromActions from '../actions';
 import * as fromServices from '../../services';
+import { localStorageAdapter } from '../../utils/local-storage-adapter';
 
 @Injectable()
 export class AuthEffects {
@@ -24,7 +25,7 @@ export class AuthEffects {
       ofType(fromActions.login),
       switchMap(payload =>
         this.authService.login(payload.credentials).pipe(
-          map(({ token }) => fromActions.loginSuccess({ token })),
+          map(({ token, user }) => fromActions.loginSuccess({ token, user })),
           catchError(error => of(fromActions.loginFailure({ error })))
         )
       )
@@ -79,8 +80,9 @@ export class AuthEffects {
     () => {
       return this.actions$.pipe(
         ofType(fromActions.loginSuccess),
-        tap(({ token }) => {
+        tap(({ token, user }) => {
           localStorage.setItem('token', token);
+          localStorageAdapter.setItem('authUser', user);
 
           this.toastr.success('You have successfully logged in', 'Cool!', {
             timeOut: 5000,

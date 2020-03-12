@@ -1,6 +1,7 @@
 import { createReducer, on, Action } from '@ngrx/store';
 
 import * as fromActions from '../../store/actions';
+import * as fromModels from '../../models';
 
 export interface IAuthState {
   loginPending: boolean;
@@ -25,7 +26,7 @@ export const authReducer = createReducer(
     loginPending: true,
     loginError: undefined
   })),
-  on(fromActions.loginSuccess, state => ({
+  on(fromActions.loginSuccess, (state, { token, user }) => ({
     ...state,
     loginPending: false,
     loginError: undefined

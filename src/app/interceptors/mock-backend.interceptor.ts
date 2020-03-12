@@ -55,7 +55,7 @@ export class MockBackendInterceptor implements HttpInterceptor {
 
       if (user) {
         return of(
-          new HttpResponse({ status: 200, body: { token: fakeToken } })
+          new HttpResponse({ status: 200, body: { token: fakeToken, user } })
         ).pipe(delay(2000));
       } else {
         // this is the way to delay throwError Observable
@@ -82,9 +82,7 @@ export class MockBackendInterceptor implements HttpInterceptor {
       const users = this.users.filter(_user => _user.id !== id);
       localStorageAdapter.setItem('users', users);
 
-      return of(new HttpResponse({ status: 200, body: { id } })).pipe(
-        delay(2000)
-      );
+      return of(new HttpResponse({ status: 200, body: { id } }));
     }
   }
 }

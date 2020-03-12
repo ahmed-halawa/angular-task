@@ -18,7 +18,18 @@
           <td class="hide-mobile">{{ user.firstName }}</td>
           <td class="hide-mobile">{{ user.lastName }}</td>
           <td>
-            <button class="delete">Delete</button>
+            <ng-container
+              *ngIf="authUser?.id === user.id; else elseDeleteTemplate"
+            >
+              <button class="delete" (click)="deleteUser(user); logout()">
+                Delete me & Logout
+              </button>
+            </ng-container>
+            <ng-template #elseDeleteTemplate>
+              <button class="delete" (click)="deleteUser(user)">
+                Delete
+              </button>
+            </ng-template>
           </td>
         </tr>
       </table>

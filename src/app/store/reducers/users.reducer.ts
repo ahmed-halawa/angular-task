@@ -46,11 +46,16 @@ export const usersReducer = createReducer(
     deletePending: true,
     deleteError: undefined
   })),
-  on(fromActions.deleteUserSuccess, state => ({
-    ...state,
-    deletePending: false,
-    deleteError: undefined
-  })),
+  on(fromActions.deleteUserSuccess, (state, { id }) => {
+    const newUsers = [...state.users].filter(_user => _user.id !== id);
+
+    return {
+      ...state,
+      deletePending: false,
+      deleteError: undefined,
+      users: newUsers
+    };
+  }),
   on(fromActions.deleteUserFailure, (state, { error }) => ({
     ...state,
     deletePending: false,

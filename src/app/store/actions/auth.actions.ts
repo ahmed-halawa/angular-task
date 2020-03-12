@@ -14,7 +14,7 @@ export const login = createAction(
 );
 export const loginSuccess = createAction(
   '[Authentication] login success',
-  props<{ token: string }>()
+  props<{ token: string; user: fromModels.IUser }>()
 );
 export const loginFailure = createAction(
   '[Authentication] login failure',

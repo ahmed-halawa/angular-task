@@ -11,7 +11,7 @@ export class UsersService {
     return this.httpClient.get<fromModels.IUser[]>('/api/v1/users');
   }
 
-  deleteUser(id: string) {
-    return this.httpClient.delete(`/api/v1/users/delete/${id}`);
+  deleteUser(id: string): Observable<{ id: string }> {
+    return this.httpClient.delete<{ id: string }>(`/api/v1/users/delete/${id}`);
   }
 }

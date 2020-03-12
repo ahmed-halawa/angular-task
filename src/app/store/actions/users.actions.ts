@@ -20,7 +20,10 @@ export const deleteUser = createAction(
     id: string;
   }>()
 );
-export const deleteUserSuccess = createAction('[Users] delete user success');
+export const deleteUserSuccess = createAction(
+  '[Users] delete user success',
+  props<{ id: string }>()
+);
 export const deleteUserFailure = createAction(
   '[Users] delete user failure',
   props<{ error: Error }>()
