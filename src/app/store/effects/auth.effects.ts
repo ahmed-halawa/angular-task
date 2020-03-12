@@ -123,4 +123,52 @@ export class AuthEffects {
     },
     { dispatch: false }
   );
+
+  changePassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromActions.changePassword),
+      switchMap(payload =>
+        this.authService.changePassword(payload).pipe(
+          map(() => fromActions.changePasswordSuccess()),
+          catchError(error => of(fromActions.changePasswordFailure({ error })))
+        )
+      )
+    )
+  );
+
+  changePasswordSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(fromActions.changePasswordSuccess),
+        tap(() => {
+          this.toastr.success(
+            'You password has been successfully changed',
+            'Done !',
+            {
+              timeOut: 5000,
+              positionClass: 'toast-bottom-left'
+            }
+          );
+
+          this.router.navigate(['/users']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  changePasswordFailure$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(fromActions.changePasswordFailure),
+        tap(({ error }) => {
+          this.toastr.error(error.message, 'Failed to change password', {
+            timeOut: 5000,
+            positionClass: 'toast-bottom-left'
+          });
+        })
+      );
+    },
+    { dispatch: false }
+  );
 }

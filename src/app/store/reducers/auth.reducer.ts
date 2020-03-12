@@ -8,13 +8,17 @@ export interface IAuthState {
   loginError: Error;
   signupPending: boolean;
   signupError: Error;
+  changePasswordPending: boolean;
+  changePasswordError: Error;
 }
 
 export const initialState: IAuthState = {
   loginPending: false,
   loginError: undefined,
   signupPending: false,
-  signupError: undefined
+  signupError: undefined,
+  changePasswordPending: false,
+  changePasswordError: undefined
 };
 
 export const authReducer = createReducer(
@@ -52,6 +56,23 @@ export const authReducer = createReducer(
     ...state,
     signupPending: false,
     signupError: error
+  })),
+
+  // Handle change password actions
+  on(fromActions.changePassword, state => ({
+    ...state,
+    changePasswordPending: true,
+    changePasswordError: undefined
+  })),
+  on(fromActions.changePasswordSuccess, state => ({
+    ...state,
+    changePasswordPending: false,
+    changePasswordError: undefined
+  })),
+  on(fromActions.changePasswordFailure, (state, { error }) => ({
+    ...state,
+    changePasswordPending: false,
+    changePasswordError: error
   }))
 );
 
@@ -66,3 +87,9 @@ export const getLoginErrorState = (state: IAuthState) => state.loginError;
 // Signup selectors
 export const getSignupPendingState = (state: IAuthState) => state.signupPending;
 export const getSignupErrorState = (state: IAuthState) => state.signupError;
+
+// Change password selectors
+export const getChangePasswordPendingState = (state: IAuthState) =>
+  state.changePasswordPending;
+export const getChangePasswordErrorState = (state: IAuthState) =>
+  state.changePasswordError;

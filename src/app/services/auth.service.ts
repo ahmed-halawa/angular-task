@@ -25,6 +25,22 @@ export class AuthService {
     return this.httpClient.post('/api/v1/auth/signup', user);
   }
 
+  changePassword({
+    oldPassword,
+    newPassword,
+    user
+  }: {
+    oldPassword;
+    newPassword;
+    user: fromModels.IUser;
+  }) {
+    return this.httpClient.post('/api/v1/auth/change-password', {
+      oldPassword,
+      newPassword,
+      user
+    });
+  }
+
   getToken(): string {
     return localStorage.getItem('token');
   }

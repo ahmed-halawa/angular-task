@@ -46,6 +46,8 @@ export class MockBackendInterceptor implements HttpInterceptor {
     }
 
     if (request.method === 'POST' && request.url === '/api/v1/auth/login') {
+      this.users = localStorageAdapter.getItem('users') || [];
+
       const { username, password } = request.body;
       const user = this.users.find(
         _user => _user.username === username && _user.password === password
@@ -81,8 +83,39 @@ export class MockBackendInterceptor implements HttpInterceptor {
 
       const users = this.users.filter(_user => _user.id !== id);
       localStorageAdapter.setItem('users', users);
+      this.users = localStorageAdapter.getItem('users');
 
       return of(new HttpResponse({ status: 200, body: { id } }));
+    }
+
+    // Handle change password api
+    if (
+      request.method === 'POST' &&
+      request.url === '/api/v1/auth/change-password'
+    ) {
+      const { oldPassword, newPassword, user } = request.body;
+      const userFound = this.users.find(
+        _user =>
+          _user.username === user.username && _user.password === oldPassword
+      );
+
+      if (userFound) {
+        // Change his password to new password
+        const newUser: fromModels.IUser = { ...user, password: newPassword };
+        const newUsers = this.users.filter(_user => _user.id !== user.id);
+        localStorageAdapter.setItem('users', [...newUsers, newUser]);
+        this.users = localStorageAdapter.getItem('users');
+
+        return of(new HttpResponse({ status: 200, body: { user } })).pipe(
+          delay(2000)
+        );
+      } else {
+        // this is the way to delay throwError Observable
+        const throwingObservable = throwError(
+          new Error('The old password is invalid. something wrong!')
+        );
+        return timer(2000).pipe(mergeMap(e => throwingObservable));
+      }
     }
   }
 }
@@ -96,4 +129,9 @@ export class MockBackendInterceptor implements HttpInterceptor {
  *   4. feedback
  *   5. error cases with api like username is already exits
  *   6. pending & spinners
+ *  
+ *  TODO: Testing
+ *          1. Ngrx store [reducers, selectors, effects] 
+ *          2. Services [auth, users] 
+ *          3. Services [auth, users]  
  */

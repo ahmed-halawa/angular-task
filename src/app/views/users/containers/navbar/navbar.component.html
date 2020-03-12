@@ -1,4 +1,9 @@
 <div class="navbar">
   <a routerLink="/users">Home</a>
-  <button (click)="logout.emit()">Logout</button>
+  <div>
+    <a class="change-password" routerLink="/users/change-password"
+      >Change Password</a
+    >
+    <button (click)="logout.emit()">Logout</button>
+  </div>
 </div>

@@ -29,3 +29,15 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #b9aaaa;
 }
+
+.bar {
+  background-color: #3F51B5 !important;
+}
+
+#loading-bar {
+  color: white;
+}
+
+#loading-bar-spinner {
+  display: none !important;
+}

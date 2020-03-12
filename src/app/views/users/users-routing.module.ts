@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: fromContainers.UsersComponent
+  },
+  {
+    path: 'change-password',
+    component: fromContainers.ChangePasswordComponent
   }
 ];
 

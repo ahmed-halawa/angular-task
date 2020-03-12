@@ -22,3 +22,14 @@ export const getAuthSignupError = createSelector(
   fromRoot.getAuthState,
   (state: fromAuthReducer.IAuthState) => state.signupError
 );
+
+// Change password
+export const getChangePasswordPending = createSelector(
+  fromRoot.getAuthState,
+  fromAuthReducer.getChangePasswordPendingState
+);
+
+export const getChangePasswordError = createSelector(
+  fromRoot.getAuthState,
+  fromAuthReducer.getChangePasswordErrorState
+);

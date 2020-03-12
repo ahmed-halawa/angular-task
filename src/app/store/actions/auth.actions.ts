@@ -32,5 +32,18 @@ export const signupFailure = createAction(
   props<{ error: Error }>()
 );
 
+// Change Password Actions
+export const changePassword = createAction(
+  '[Authentication] changePassword',
+  props<{ oldPassword: string; newPassword: string; user: fromModels.IUser }>()
+);
+export const changePasswordSuccess = createAction(
+  '[Authentication] changePassword success'
+);
+export const changePasswordFailure = createAction(
+  '[Authentication] changePassword failure',
+  props<{ error: Error }>()
+);
+
 // Logout Actions
 export const logout = createAction('[Authentication] logout');
