@@ -6,25 +6,27 @@ import * as fromModels from '../../models';
 export const login = createAction(
   '[Authentication] login',
   props<{
-    username: string;
-    password: string;
+    credentials: {
+      username: string;
+      password: string;
+    };
   }>()
 );
 export const loginSuccess = createAction('[Authentication] login success');
 export const loginFailure = createAction(
   '[Authentication] login failure',
-  props<Error>()
+  props<{ error: Error }>()
 );
 
 // Signup Actions
 export const signup = createAction(
   '[Authentication] signup',
-  props<fromModels.IUser>()
+  props<{ user: fromModels.IUser }>()
 );
 export const signupSuccess = createAction('[Authentication] signup success');
 export const signupFailure = createAction(
   '[Authentication] signup failure',
-  props<Error>()
+  props<{ error: Error }>()
 );
 
 // Logout Actions

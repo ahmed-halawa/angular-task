@@ -27,6 +27,7 @@ import * as fromInterceptors from './interceptors';
     ToastrModule.forRoot(),
     StoreRouterConnectingModule.forRoot(),
     StoreModule.forRoot(fromStore.reducers, {
+      metaReducers: [],
       runtimeChecks: {
         strictStateImmutability: false,
         strictActionImmutability: false,

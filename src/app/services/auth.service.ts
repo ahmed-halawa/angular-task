@@ -7,16 +7,10 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
   login(credentials: { username: string; password: string }) {
-    return this.httpClient.post(
-      'http://fack-backend-route.com/api/v1/auth/login',
-      credentials
-    );
+    return this.httpClient.post('/api/v1/auth/login', credentials);
   }
 
   signup(user: fromModels.IUser) {
-    return this.httpClient.post(
-      'http://fack-backend-route.com/api/v1/auth/signup',
-      user
-    );
+    return this.httpClient.post('/api/v1/auth/signup', user);
   }
 }

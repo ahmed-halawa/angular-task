@@ -1,1 +1,4 @@
-<signup-form (submitted)="onSubmit($event)"></signup-form>
+<signup-form
+  (submitted)="onSubmit($event)"
+  [signUpPending]="signUpPending$ | async"
+></signup-form>

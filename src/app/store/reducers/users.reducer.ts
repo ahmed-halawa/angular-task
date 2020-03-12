@@ -1,4 +1,4 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 
 import * as fromActions from '../actions';
 
@@ -16,7 +16,7 @@ export const initialState: IUsersState = {
   deleteError: undefined
 };
 
-export const reducer = createReducer(
+export const usersReducer = createReducer(
   initialState,
 
   // Handle load users actions
@@ -30,10 +30,10 @@ export const reducer = createReducer(
     pending: false,
     error: undefined
   })),
-  on(fromActions.loadUsersFailure, (state, err) => ({
+  on(fromActions.loadUsersFailure, (state, { error }) => ({
     ...state,
     pending: false,
-    error: err
+    error: error
   })),
 
   // Handle delete user actions
@@ -47,12 +47,16 @@ export const reducer = createReducer(
     deletePending: false,
     deleteError: undefined
   })),
-  on(fromActions.deleteUserFailure, (state, err) => ({
+  on(fromActions.deleteUserFailure, (state, { error }) => ({
     ...state,
     deletePending: false,
-    deleteError: err
+    deleteError: error
   }))
 );
+
+export function reducer(state: IUsersState | undefined, action: Action) {
+  return usersReducer(state, action);
+}
 
 // Load users selectors
 export const getUsersPendingState = (state: IUsersState) => state.pending;

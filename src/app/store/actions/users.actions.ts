@@ -6,11 +6,11 @@ import * as fromModels from '../../models';
 export const loadUsers = createAction('[Users] load users');
 export const loadUsersSuccess = createAction(
   '[Users] load users success',
-  props<fromModels.IUser[]>()
+  props<{ users: fromModels.IUser[] }>()
 );
 export const loadUsersFailure = createAction(
   '[Users] load users failure',
-  props<Error>()
+  props<{ error: Error }>()
 );
 
 // Delete User Actions
@@ -23,5 +23,5 @@ export const deleteUser = createAction(
 export const deleteUserSuccess = createAction('[Users] delete user success');
 export const deleteUserFailure = createAction(
   '[Users] delete user failure',
-  props<Error>()
+  props<{ error: Error }>()
 );

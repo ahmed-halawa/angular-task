@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { CustomValidators } from '../../../../../utils/custom-validators';
 
@@ -11,6 +11,7 @@ export class SignupFormComponent implements OnInit {
   form: FormGroup;
   isSubmitted = false;
   @Output() submitted = new EventEmitter();
+  @Input() signUpPending;
 
   get firstNameRequired(): boolean {
     return (
@@ -110,6 +111,10 @@ export class SignupFormComponent implements OnInit {
 
   onSubmit() {
     this.isSubmitted = true;
-    this.submitted.emit(this.form.value);
+    const { value, valid } = this.form;
+
+    if (valid) {
+      this.submitted.emit(value);
+    }
   }
 }

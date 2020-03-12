@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<!-- <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <label for="firstName">
     firstName <input type="text" id="firstName" formControlName="firstName" />
     <span *ngIf="firstNameRequired">First Name is required</span>
@@ -20,4 +20,60 @@
     <span *ngIf="passwordMinlength">Min 6 characters</span>
   </label>
   <button type="submit">Signup</button>
-</form>
+</form> -->
+
+<div class="register">
+  <h1>Sign Up</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label for="firstName">
+      First Name
+      <input
+        type="text"
+        id="firstName"
+        formControlName="firstName"
+        placeholder="John"
+      />
+      <span *ngIf="firstNameRequired">First Name is required</span>
+      <span *ngIf="firstNameMinlength">Min 3 characters</span>
+    </label>
+    <label for="lastName">
+      Last Name
+      <input
+        type="text"
+        id="lastName"
+        formControlName="lastName"
+        placeholder="Doe"
+      />
+      <span *ngIf="lastNameRequired">Last Name is required</span>
+      <span *ngIf="lastNameMinlength">Min 3 characters</span>
+    </label>
+    <label for="username">
+      Username
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        placeholder="John Doe"
+      />
+      <span *ngIf="usernameRequired">Username is required</span>
+      <span *ngIf="usernameMinlength">Min 3 characters</span>
+    </label>
+    <label>
+      Password
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="............."
+      />
+      <span *ngIf="passwordRequired">Password is required</span>
+      <span *ngIf="passwordMinlength">Min 6 characters</span>
+    </label>
+    <button
+      [type]="signUpPending ? 'button' : 'submit'"
+      [style.opacity]="signUpPending ? '0.5' : 1"
+    >
+      {{ signUpPending ? 'Signing up.....' : 'Signup' }}
+    </button>
+  </form>
+  <a routerLink="/auth/login">Login</a>
+</div>

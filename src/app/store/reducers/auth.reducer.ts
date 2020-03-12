@@ -1,4 +1,4 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 
 import * as fromActions from '../../store/actions';
 
@@ -16,7 +16,7 @@ export const initialState: IAuthState = {
   signupError: undefined
 };
 
-export const reducer = createReducer(
+export const authReducer = createReducer(
   initialState,
 
   // Handle login actions
@@ -30,10 +30,10 @@ export const reducer = createReducer(
     loginPending: false,
     loginError: undefined
   })),
-  on(fromActions.loginFailure, (state, err) => ({
+  on(fromActions.loginFailure, (state, { error }) => ({
     ...state,
     loginPending: false,
-    loginError: err
+    loginError: error
   })),
 
   // Handle signup actions
@@ -47,12 +47,16 @@ export const reducer = createReducer(
     signupPending: false,
     signupError: undefined
   })),
-  on(fromActions.signupFailure, (state, err) => ({
+  on(fromActions.signupFailure, (state, { error }) => ({
     ...state,
     signupPending: false,
-    signupError: err
+    signupError: error
   }))
 );
+
+export function reducer(state: IAuthState | undefined, action: Action) {
+  return authReducer(state, action);
+}
 
 // Login selectors
 export const getLoginPendingState = (state: IAuthState) => state.loginPending;

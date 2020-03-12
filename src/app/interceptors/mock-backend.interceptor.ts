@@ -7,8 +7,8 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable, of, throwError } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Observable, of, throwError, timer } from 'rxjs';
+import { delay, mergeMap } from 'rxjs/operators';
 
 import { v4 as uuidV4 } from 'uuid';
 
@@ -25,6 +25,21 @@ export class MockBackendInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     if (request.method === 'POST' && request.url === '/api/v1/auth/signup') {
       const newUser = { ...request.body, id: uuidV4() };
+
+      // check if new user username is exist or not
+      // if throw an error
+      const userIsFound = this.users.find(
+        _user => _user.username === newUser.username
+      );
+
+      if (userIsFound) {
+        // this is the way to delay throwError Observable
+        const throwingObservable = throwError(
+          new Error('This username is already exist.')
+        );
+        return timer(2000).pipe(mergeMap(e => throwingObservable));
+      }
+
       this.users.push(newUser);
       localStorageAdapter.setItem('users', this.users);
       return of(new HttpResponse({ status: 200 })).pipe(delay(2000));
@@ -39,9 +54,11 @@ export class MockBackendInterceptor implements HttpInterceptor {
       if (user) {
         return of(new HttpResponse({ status: 200 })).pipe(delay(2000));
       } else {
-        return throwError({
-          message: 'Username or password is invalid.'
-        });
+        // this is the way to delay throwError Observable
+        const throwingObservable = throwError(
+          new Error('Username or password is invalid.')
+        );
+        return timer(2000).pipe(mergeMap(e => throwingObservable));
       }
     }
 
@@ -69,13 +86,12 @@ export class MockBackendInterceptor implements HttpInterceptor {
 }
 
 /**
- * TODO: connect ngrx
- * TODO: add ngrx effects
- * TODO: complete all api actions
- * TODO: add jwt and its interceptor
- * TODO: design the app with responsive
- * TODO: test ngrx state
- * TODO: test local storage adapter
- * TODO: test components
+ *   TODO: Signup module
  *
+ *   1. components
+ *   2. state management
+ *   3. design
+ *   4. feedback
+ *   5. error cases with api like username is already exits
+ *   6. pending & spinners
  */

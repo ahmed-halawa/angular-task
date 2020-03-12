@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
-import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+
 import * as fromModels from '../../../../../models';
+import * as fromStore from '../../../../../store';
+import * as fromActions from '../../../../../store/actions';
 
 @Component({
   selector: 'signup',
@@ -10,22 +13,17 @@ import * as fromModels from '../../../../../models';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  constructor(private http: HttpClient, private toastr: ToastrService) {}
+  signUpPending$: Observable<boolean>;
+
+  constructor(private store: Store<fromStore.IRootState>) {}
 
   ngOnInit() {
-    this.http.get('/api/v1/users').subscribe(users => {
-      console.log({ users });
-    });
+    this.signUpPending$ = this.store.pipe(
+      select(fromStore.getAuthSignupPending)
+    );
   }
 
-  onSubmit(user: Partial<fromModels.IUser>) {
-    const url = '/api/v1/auth/signup';
-
-    this.http.post(url, user).subscribe(() => {
-      this.toastr.success('You have successfully signed up', 'Congrats', {
-        timeOut: 4000,
-        positionClass: 'toast-bottom-left'
-      });
-    });
+  onSubmit(user: fromModels.IUser) {
+    this.store.dispatch(fromActions.signup({ user }));
   }
 }

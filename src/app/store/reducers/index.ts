@@ -8,12 +8,10 @@ export interface IRootState {
   users: fromUsersReducer.IUsersState;
 }
 
-export function reducers(state: IRootState, action: Action) {
-  return combineReducers({
-    auth: fromAuthReducer.reducer,
-    users: fromUsersReducer.reducer
-  })(state, action);
-}
+export const reducers = {
+  auth: fromAuthReducer.reducer,
+  users: fromUsersReducer.reducer
+};
 
 export const getAuthState = createFeatureSelector<fromAuthReducer.IAuthState>(
   'auth'
