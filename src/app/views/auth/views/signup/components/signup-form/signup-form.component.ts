@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { CustomValidators } from '../../../../../utils/custom-validators';
+import { CustomValidators } from '../../../../../../utils/custom-validators';
 
 @Component({
   selector: 'signup-form',

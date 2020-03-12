@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import * as fromModels from '../../../../../models';
-import * as fromStore from '../../../../../store';
-import * as fromActions from '../../../../../store/actions';
+import * as fromModels from '../../../../../../models';
+import * as fromStore from '../../../../../../store';
+import * as fromActions from '../../../../../../store/actions';
 
 @Component({
   selector: 'signup',
