@@ -1,13 +1,33 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <label for="username">
-    Username <input type="text" id="username" formControlName="username" />
-    <span *ngIf="usernameRequired">Username is required</span>
-    <span *ngIf="usernameMinlength">Min 3 characters</span>
-  </label>
-  <label>
-    Password <input type="password" formControlName="password" />
-    <span *ngIf="passwordRequired">Password is required</span>
-    <span *ngIf="passwordMinlength">Min 6 characters</span>
-  </label>
-  <button type="submit">Login</button>
-</form>
+<div class="login">
+  <h1>Login</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label for="username">
+      Username
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        placeholder="John Doe"
+      />
+      <span *ngIf="usernameRequired">Username is required</span>
+      <span *ngIf="usernameMinlength">Min 3 characters</span>
+    </label>
+    <label>
+      Password
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="............."
+      />
+      <span *ngIf="passwordRequired">Password is required</span>
+      <span *ngIf="passwordMinlength">Min 6 characters</span>
+    </label>
+    <button
+      [type]="loginPending ? 'button' : 'submit'"
+      [style.opacity]="loginPending ? '0.5' : 1"
+    >
+      {{ loginPending ? 'logging .....' : 'Login' }}
+    </button>
+  </form>
+  <a routerLink="/auth/signup">Signup</a>
+</div>

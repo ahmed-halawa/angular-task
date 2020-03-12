@@ -1,5 +1,6 @@
 import { createReducer, on, Action } from '@ngrx/store';
 
+import * as fromModels from '../../models';
 import * as fromActions from '../actions';
 
 export interface IUsersState {
@@ -7,13 +8,15 @@ export interface IUsersState {
   error: Error;
   deletePending: boolean;
   deleteError: Error;
+  users: fromModels.IUser[];
 }
 
 export const initialState: IUsersState = {
   pending: false,
   error: undefined,
   deletePending: false,
-  deleteError: undefined
+  deleteError: undefined,
+  users: []
 };
 
 export const usersReducer = createReducer(
@@ -25,10 +28,11 @@ export const usersReducer = createReducer(
     pending: true,
     error: undefined
   })),
-  on(fromActions.loadUsersSuccess, state => ({
+  on(fromActions.loadUsersSuccess, (state, { users }) => ({
     ...state,
     pending: false,
-    error: undefined
+    error: undefined,
+    users
   })),
   on(fromActions.loadUsersFailure, (state, { error }) => ({
     ...state,

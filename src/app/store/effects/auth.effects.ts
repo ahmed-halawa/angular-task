@@ -24,7 +24,7 @@ export class AuthEffects {
       ofType(fromActions.login),
       switchMap(payload =>
         this.authService.login(payload.credentials).pipe(
-          map(() => fromActions.loginSuccess()),
+          map(({ token }) => fromActions.loginSuccess({ token })),
           catchError(error => of(fromActions.loginFailure({ error })))
         )
       )
@@ -69,6 +69,53 @@ export class AuthEffects {
             timeOut: 5000,
             positionClass: 'toast-bottom-left'
           });
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  loginSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(fromActions.loginSuccess),
+        tap(({ token }) => {
+          localStorage.setItem('token', token);
+
+          this.toastr.success('You have successfully logged in', 'Cool!', {
+            timeOut: 5000,
+            positionClass: 'toast-bottom-left'
+          });
+
+          this.router.navigate(['/users']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  loginFailure$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(fromActions.loginFailure),
+        tap(({ error }) => {
+          this.toastr.error(error.message, 'Failed to login', {
+            timeOut: 5000,
+            positionClass: 'toast-bottom-left'
+          });
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  logout$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(fromActions.logout),
+        tap(() => {
+          localStorage.removeItem('token');
+          this.router.navigate(['/auth/login']);
         })
       );
     },

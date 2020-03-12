@@ -1,1 +1,4 @@
-<login-form (submitted)="onSubmit($event)"></login-form>
+<login-form
+  (submitted)="onSubmit($event)"
+  [loginPending]="loginPending$ | async"
+></login-form>

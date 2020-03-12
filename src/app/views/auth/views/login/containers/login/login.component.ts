@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import * as fromModels from '../../../../../../models';
+
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+
+import * as fromStore from '../../../../../../store';
+import * as fromActions from '../../../../../../store/actions';
 
 @Component({
   selector: 'login',
@@ -7,11 +12,15 @@ import * as fromModels from '../../../../../../models';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  constructor() {}
+  loginPending$: Observable<boolean>;
 
-  ngOnInit() {}
+  constructor(private store: Store<fromStore.IRootState>) {}
 
-  onSubmit(user: Partial<fromModels.IUser>) {
-    console.log(user);
+  ngOnInit() {
+    this.loginPending$ = this.store.pipe(select(fromStore.getAuthLoginPending));
+  }
+
+  onSubmit(credentials: { username: string; password: string }) {
+    this.store.dispatch(fromActions.login({ credentials }));
   }
 }

@@ -51,8 +51,12 @@ export class MockBackendInterceptor implements HttpInterceptor {
         _user => _user.username === username && _user.password === password
       );
 
+      const fakeToken = 'Bearer fake token';
+
       if (user) {
-        return of(new HttpResponse({ status: 200 })).pipe(delay(2000));
+        return of(
+          new HttpResponse({ status: 200, body: { token: fakeToken } })
+        ).pipe(delay(2000));
       } else {
         // this is the way to delay throwError Observable
         const throwingObservable = throwError(

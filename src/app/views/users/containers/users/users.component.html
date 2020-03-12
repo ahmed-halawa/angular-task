@@ -1,1 +1,27 @@
-<p>users works!</p>
+<navbar (logout)="logout()"></navbar>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="header">Users List</div>
+    <loader *ngIf="usersLoading$ | async; else elseTemplate"></loader>
+
+    <ng-template #elseTemplate>
+      <table class="users">
+        <tr>
+          <th>Username</th>
+          <th class="hide-mobile">First Name</th>
+          <th class="hide-mobile">Last Name</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let user of users$ | async">
+          <td>{{ user.username }}</td>
+          <td class="hide-mobile">{{ user.firstName }}</td>
+          <td class="hide-mobile">{{ user.lastName }}</td>
+          <td>
+            <button class="delete">Delete</button>
+          </td>
+        </tr>
+      </table>
+    </ng-template>
+  </div>
+</div>
