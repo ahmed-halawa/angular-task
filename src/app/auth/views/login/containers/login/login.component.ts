@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as fromModels from '../../../../../models';
 
 @Component({
   selector: 'login',
@@ -9,4 +10,8 @@ export class LoginComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  onSubmit(user: Partial<fromModels.IUser>) {
+    console.log(user);
+  }
 }

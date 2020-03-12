@@ -6,30 +6,25 @@ import * as fromModels from '../../models';
 export const login = createAction(
   '[Authentication] login',
   props<{
-    payload: Partial<fromModels.IUser>;
+    username: string;
+    password: string;
   }>()
 );
 export const loginSuccess = createAction('[Authentication] login success');
 export const loginFailure = createAction(
   '[Authentication] login failure',
-  props<{
-    payload: Error;
-  }>()
+  props<Error>()
 );
 
 // Signup Actions
 export const signup = createAction(
   '[Authentication] signup',
-  props<{
-    payload: Partial<fromModels.IUser>;
-  }>()
+  props<fromModels.IUser>()
 );
 export const signupSuccess = createAction('[Authentication] signup success');
 export const signupFailure = createAction(
   '[Authentication] signup failure',
-  props<{
-    payload: Error;
-  }>()
+  props<Error>()
 );
 
 // Logout Actions

@@ -30,10 +30,10 @@ export const reducer = createReducer(
     loginPending: false,
     loginError: undefined
   })),
-  on(fromActions.loginFailure, (state, { payload }) => ({
+  on(fromActions.loginFailure, (state, err) => ({
     ...state,
     loginPending: false,
-    loginError: payload
+    loginError: err
   })),
 
   // Handle signup actions
@@ -47,10 +47,10 @@ export const reducer = createReducer(
     signupPending: false,
     signupError: undefined
   })),
-  on(fromActions.signupFailure, (state, { payload }) => ({
+  on(fromActions.signupFailure, (state, err) => ({
     ...state,
     signupPending: false,
-    signupError: payload
+    signupError: err
   }))
 );
 

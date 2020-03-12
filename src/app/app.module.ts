@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { EffectsModule } from '@ngrx/effects';
@@ -10,9 +8,13 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+import { ToastrModule } from 'ngx-toastr';
 
-import * as fromStore from './store';
 import { environment } from '../environments/environment';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import * as fromStore from './store';
+import * as fromInterceptors from './interceptors';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +22,9 @@ import { environment } from '../environments/environment';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     LoadingBarRouterModule,
+    ToastrModule.forRoot(),
     StoreRouterConnectingModule.forRoot(),
     StoreModule.forRoot(fromStore.reducers, {
       runtimeChecks: {
@@ -30,10 +34,16 @@ import { environment } from '../environments/environment';
         strictActionSerializability: false
       }
     }),
-    // EffectsModule.forRoot(fromStore.effects),
+    EffectsModule.forRoot(fromStore.effects),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: fromInterceptors.MockBackendInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
