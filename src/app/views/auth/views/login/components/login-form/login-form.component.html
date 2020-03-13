@@ -8,6 +8,10 @@
         id="username"
         formControlName="username"
         placeholder="John Doe"
+        border
+        [borderColor]="
+          usernameRequired || usernameMinlength ? '#f44336' : '#d7d7d7'
+        "
       />
       <span *ngIf="usernameRequired">Username is required</span>
       <span *ngIf="usernameMinlength">Min 3 characters</span>
@@ -18,6 +22,10 @@
         type="password"
         formControlName="password"
         placeholder="............."
+        border
+        [borderColor]="
+          passwordRequired || passwordMinlength ? '#f44336' : '#d7d7d7'
+        "
       />
       <span *ngIf="passwordRequired">Password is required</span>
       <span *ngIf="passwordMinlength">Min 6 characters</span>

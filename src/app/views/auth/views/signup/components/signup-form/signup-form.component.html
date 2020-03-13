@@ -8,6 +8,10 @@
         id="firstName"
         formControlName="firstName"
         placeholder="John"
+        border
+        [borderColor]="
+          firstNameRequired || firstNameMinlength ? '#f44336' : '#d7d7d7'
+        "
       />
       <span *ngIf="firstNameRequired">First Name is required</span>
       <span *ngIf="firstNameMinlength">Min 3 characters</span>
@@ -19,6 +23,10 @@
         id="lastName"
         formControlName="lastName"
         placeholder="Doe"
+        border
+        [borderColor]="
+          lastNameRequired || lastNameMinlength ? '#f44336' : '#d7d7d7'
+        "
       />
       <span *ngIf="lastNameRequired">Last Name is required</span>
       <span *ngIf="lastNameMinlength">Min 3 characters</span>
@@ -30,6 +38,10 @@
         id="username"
         formControlName="username"
         placeholder="John Doe"
+        border
+        [borderColor]="
+          usernameRequired || usernameMinlength ? '#f44336' : '#d7d7d7'
+        "
       />
       <span *ngIf="usernameRequired">Username is required</span>
       <span *ngIf="usernameMinlength">Min 3 characters</span>
@@ -40,6 +52,10 @@
         type="password"
         formControlName="password"
         placeholder="............."
+        border
+        [borderColor]="
+          passwordRequired || passwordMinlength ? '#f44336' : '#d7d7d7'
+        "
       />
       <span *ngIf="passwordRequired">Password is required</span>
       <span *ngIf="passwordMinlength">Min 6 characters</span>
