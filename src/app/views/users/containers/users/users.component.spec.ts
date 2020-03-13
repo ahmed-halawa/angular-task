@@ -8,7 +8,6 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { LoaderComponent } from '../../components/loader/loader.component';
 import * as fromStore from '../../../../store';
 
-
 describe('UsersComponent', () => {
   let component: UsersComponent;
   let fixture: ComponentFixture<UsersComponent>;
@@ -17,7 +16,16 @@ describe('UsersComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UsersComponent, NavbarComponent, LoaderComponent],
-      providers: [provideMockStore({})]
+      providers: [
+        provideMockStore({
+          selectors: [
+            {
+              selector: fromStore.getUsers,
+              value: []
+            }
+          ]
+        })
+      ]
     }).compileComponents();
 
     store = TestBed.get(Store);

@@ -70,6 +70,7 @@ export function reducer(state: IUsersState | undefined, action: Action) {
 // Load users selectors
 export const getUsersPendingState = (state: IUsersState) => state.pending;
 export const getUsersErrorState = (state: IUsersState) => state.error;
+export const getUsersState = (state: IUsersState) => state.users;
 
 // Delete user selectors
 export const getDeleteUserPendingState = (state: IUsersState) =>

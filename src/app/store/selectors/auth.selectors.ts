@@ -5,22 +5,22 @@ import * as fromAuthReducer from '../reducers/auth.reducer';
 
 export const getAuthLoginPending = createSelector(
   fromRoot.getAuthState,
-  (state: fromAuthReducer.IAuthState) => state.loginPending
+  fromAuthReducer.getLoginPendingState
 );
 
 export const getAuthLoginError = createSelector(
   fromRoot.getAuthState,
-  (state: fromAuthReducer.IAuthState) => state.loginError
+  fromAuthReducer.getLoginErrorState
 );
 
 export const getAuthSignupPending = createSelector(
   fromRoot.getAuthState,
-  (state: fromAuthReducer.IAuthState) => state.signupPending
+  fromAuthReducer.getSignupPendingState
 );
 
 export const getAuthSignupError = createSelector(
   fromRoot.getAuthState,
-  (state: fromAuthReducer.IAuthState) => state.signupError
+  fromAuthReducer.getSignupErrorState
 );
 
 // Change password

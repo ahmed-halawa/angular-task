@@ -9,7 +9,6 @@ import * as fromStore from '../../../../store';
 import * as fromActions from '../../../../store/actions';
 import { localStorageAdapter } from '../../../../utils/local-storage-adapter';
 import { CustomValidators } from '../../../../utils/custom-validators';
-import { changePassword } from '../../../../store/actions/auth.actions';
 
 @Component({
   selector: 'change-password',

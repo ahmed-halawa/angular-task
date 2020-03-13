@@ -5,25 +5,25 @@ import * as fromUsersReducer from '../reducers/users.reducer';
 
 export const getUsers = createSelector(
   fromRoot.getUsersState,
-  (state: fromUsersReducer.IUsersState) => state.users
+  fromUsersReducer.getUsersState
 );
 
 export const getUsersPending = createSelector(
   fromRoot.getUsersState,
-  (state: fromUsersReducer.IUsersState) => state.pending
+  fromUsersReducer.getDeleteUserPendingState
 );
 
 export const getUsersError = createSelector(
   fromRoot.getUsersState,
-  (state: fromUsersReducer.IUsersState) => state.error
+  fromUsersReducer.getUsersErrorState
 );
 
 export const getDeleteUserPending = createSelector(
   fromRoot.getUsersState,
-  (state: fromUsersReducer.IUsersState) => state.deletePending
+  fromUsersReducer.getDeleteUserPendingState
 );
 
 export const getDeleteUserError = createSelector(
   fromRoot.getUsersState,
-  (state: fromUsersReducer.IUsersState) => state.deleteError
+  fromUsersReducer.getDeleteUserErrorState
 );
