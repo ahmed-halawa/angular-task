@@ -10,7 +10,7 @@ export const getUsers = createSelector(
 
 export const getUsersPending = createSelector(
   fromRoot.getUsersState,
-  fromUsersReducer.getDeleteUserPendingState
+  fromUsersReducer.getUsersPendingState
 );
 
 export const getUsersError = createSelector(

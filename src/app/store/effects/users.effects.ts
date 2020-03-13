@@ -26,7 +26,7 @@ export class UsersEffects {
     )
   );
 
-  deleteUsers$ = createEffect(() =>
+  deleteUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.deleteUser),
       switchMap(({ id }) =>
