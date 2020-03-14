@@ -37,12 +37,12 @@ export class MockBackendInterceptor implements HttpInterceptor {
         const throwingObservable = throwError(
           new Error('This username is already exist.')
         );
-        return timer(2000).pipe(mergeMap(e => throwingObservable));
+        return timer(1500).pipe(mergeMap(e => throwingObservable));
       }
 
       this.users.push(newUser);
       localStorageAdapter.setItem('users', this.users);
-      return of(new HttpResponse({ status: 200 })).pipe(delay(2000));
+      return of(new HttpResponse({ status: 200 })).pipe(delay(1500));
     }
 
     if (request.method === 'POST' && request.url === '/api/v1/auth/login') {
@@ -58,19 +58,19 @@ export class MockBackendInterceptor implements HttpInterceptor {
       if (user) {
         return of(
           new HttpResponse({ status: 200, body: { token: fakeToken, user } })
-        ).pipe(delay(2000));
+        ).pipe(delay(1500));
       } else {
         // this is the way to delay throwError Observable
         const throwingObservable = throwError(
           new Error('Username or password is invalid.')
         );
-        return timer(2000).pipe(mergeMap(e => throwingObservable));
+        return timer(1500).pipe(mergeMap(e => throwingObservable));
       }
     }
 
     if (request.method === 'GET' && request.url === '/api/v1/users') {
       return of(new HttpResponse({ status: 200, body: this.users })).pipe(
-        delay(2000) // Simulate async process
+        delay(1500) // Simulate async process
       );
     }
 
@@ -107,14 +107,14 @@ export class MockBackendInterceptor implements HttpInterceptor {
         this.users = localStorageAdapter.getItem('users');
 
         return of(new HttpResponse({ status: 200, body: { user } })).pipe(
-          delay(2000)
+          delay(1500)
         );
       } else {
         // this is the way to delay throwError Observable
         const throwingObservable = throwError(
           new Error('The old password is invalid. something wrong!')
         );
-        return timer(2000).pipe(mergeMap(e => throwingObservable));
+        return timer(1500).pipe(mergeMap(e => throwingObservable));
       }
     }
   }
