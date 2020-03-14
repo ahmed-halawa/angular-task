@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup.component';
 import { SignupFormComponent } from '../../components/signup-form/signup-form.component';
 import * as fromStore from '../../../../../../store';
+import { SharedModule } from '../../../../../../shared/shared.module';
 
 describe('SignupComponent', () => {
   let component: SignupComponent;
@@ -16,7 +17,7 @@ describe('SignupComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SignupComponent, SignupFormComponent],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, SharedModule],
       providers: [provideMockStore({})]
     }).compileComponents();
 

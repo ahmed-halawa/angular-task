@@ -8,6 +8,7 @@ import { LoginComponent } from './login.component';
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
 
 import * as fromStore from '../../../../../../store';
+import { SharedModule } from '../../../../../../shared/shared.module';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -17,7 +18,7 @@ describe('LoginComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent, LoginFormComponent],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, SharedModule],
       providers: [provideMockStore({})]
     }).compileComponents();
 
